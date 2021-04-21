@@ -14,7 +14,7 @@ public class Veiculo {
     double imposto;
     DecimalFormat df = new DecimalFormat("#,###.00");
 
-    Scanner input = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);    
 
     public Veiculo(double valor_mercado, int ano_fabricacao, int numCombustivel, String modelo, String marca, String placa) {
         this.valor_mercado = valor_mercado;
@@ -84,10 +84,9 @@ public class Veiculo {
         System.out.println("MODELO: " + veiculo.modelo);
         System.out.println("MARCA: " + veiculo.marca);
         System.out.println("ANO DE FABRICAÇÃO: " + veiculo.ano_fabricacao);
-        System.out.println("VALOR DE MERCADO " + veiculo.valor_mercado);
+        System.out.println("VALOR DE MERCADO: R$" + df.format(veiculo.valor_mercado));
         System.out.println("PLACA: " + veiculo.placa);
         System.out.println("TIPO DE COMBUSTÍVEL: " + veiculo.combustivel);
     }
-
-   
+ 
 }
