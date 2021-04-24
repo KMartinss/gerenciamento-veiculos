@@ -1,19 +1,32 @@
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) throws Exception {
-            Scanner input = new Scanner(System.in);
-            GerenciarVeiculos list = new GerenciarVeiculos();
-    
+    public static void main(String[] args) {
 
-            System.out.println("Selecione uma opção\n [1] - Consultar veículo\n [2] - Adicionar veículo\n Sua opção: ");
-            int opcao = input.nextInt();
+            GerenciarVeiculos list = new GerenciarVeiculos();
+            int opcao = 0;
+            String placa;
+
+            do {
+
+            Scanner input = new Scanner(System.in);
+            System.out.println("\n=============\nSelecione uma opção!\n[1] - Buscar veículo por placa");
+            System.out.println("[2] - Adicionar veículo");
+            System.out.println("[3] - Remover veículo");
+            System.out.println("[4] - Listar por tipo de combustível");
+            System.out.println("[5] - Listar todos");
+            System.out.println("[6] - Obter valor do imposto pelo número da placa");
+            System.out.println("[7] - Sair\n");
+            System.out.println("Sua opção: ");
+            opcao = input.nextInt();
 
             switch (opcao) {
 
             case 1:
-                System.out.println("Limpo");
-                break;
+                System.out.println("\nDigite a placa do veículo a ser pesquisado: ");
+                 placa = input.nextLine();
+                 break;
+                //busca veiculo por placa
             case 2:
                 System.out.println("Qual o modelo do seu veículo? ");
                 String modelo = input.next();
@@ -24,31 +37,59 @@ public class App {
                 System.out.println("Qual o ano de fabricação do veiculo? ");
                 int ano_fabricacao = input.nextInt();
 
-                System.out.println("Qual o valor de mercado do seu veículo? R$ ");
+                System.out.println("Qual o valor de mercado do seu veículo?");
                 double valor_mercado = input.nextDouble();
 
                 System.out.println("Qual a placa do seu veículo? ");
-                String placa = input.next();
+                placa = input.next();
 
                 System.out.println(
-                        "Selecione o combustível que voce utiliza! \n[1] - Gasolina | [2] - Diesel | [3] - Flex | [4] - GNV | [5] - Álcoo: ");
+                        "Selecione o combustível que voce utiliza! \n[1] - Gasolina | [2] - Diesel | [3] - Flex | [4] - GNV | [5] - Álcool: ");
                 int numCombustivel = input.nextInt();
 
-                Veiculo veiculo = new Veiculo(valor_mercado, ano_fabricacao, numCombustivel, modelo, marca, placa);
+                System.out.println("\n\nSeu veículo foi registrado com sucesso.\nCarregando menu inicial...");
 
-                System.out.println("Seu veículo foi registrado com sucesso. Confirme as informações abaixo:\n");
+                list.adicionar (new GerenciarVeiculos(modelo, marca, ano_fabricacao, valor_mercado, placa, numCombustivel));
 
-                list.adicionar(veiculo);
-
-                // veiculo.setCombustivel(numCombustivel);
-                // veiculo.imprimir(veiculo);
                 break;
 
-            default:
-                System.out.println("\nEscolha uma opção válida: ");
+                case 3:
+                //remover veiculo
+                System.out.println("\nDigite a placa do veículo a ser removido: ");
+                placa = input.next();
+                break;
 
-            }
-            input.close();
+                case 4:
+                System.out.println("\nDigite o tipo de combustível!\n[1] - Gasolina | [2] - Diesel | [3] - Flex | [4] - GNV | [5] - Álcool: ");
+                numCombustivel = input.nextInt();
+                //lista todos por combustivel
+                break;
+
+                case 5:
+                //Lista veiculos aqui
+                System.out.println(list.listarVeiculos());
+                break;
+
+                case 6:
+                //faz o calculo do imposto de acordo com a placa do veiculo
+                break;
+
+                case 7:
+                System.out.println("\nFinalizando...");
+  
+                break; // fim do codigo
+
+                default:
+                    System.out.println("\nEscolha uma opção válida");
+                    break;
+            } 
+            
+            //input.close vai ficar dando erro, se eu fecho ele aqui dentro da erro no do while
+
+        }while (opcao != 7); 
+        
+
+        }
+
 
     }
-}
