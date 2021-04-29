@@ -14,9 +14,10 @@ public abstract class Veiculo {
     private double imposto;
     private DecimalFormat df = new DecimalFormat("#,###.00");
 
-    Scanner input = new Scanner(System.in);    
+    Scanner input = new Scanner(System.in);
 
-    public Veiculo(double valor_mercado, int ano_fabricacao, int numCombustivel, String modelo, String marca, String placa) {
+    public Veiculo(double valor_mercado, int ano_fabricacao, int numCombustivel, String modelo, String marca,
+            String placa) {
         this.valor_mercado = valor_mercado;
         this.ano_fabricacao = ano_fabricacao;
         this.numCombustivel = numCombustivel;
@@ -25,7 +26,7 @@ public abstract class Veiculo {
         this.placa = placa;
     }
 
-    public Veiculo(){
+    public Veiculo() {
 
     }
 
@@ -69,20 +70,6 @@ public abstract class Veiculo {
         return imposto;
     }
 
-    public void setCombustivel(int numCombustivel) {
-        if (numCombustivel == 1) {
-            combustivel = "Gasolina";
-        } else if(numCombustivel == 2){
-            combustivel = "Diesel";
-        } else if(numCombustivel == 3){
-            combustivel = "Flex";
-        }  else if(numCombustivel == 4){
-            combustivel = "GNV";
-        }  else if(numCombustivel == 5){
-            combustivel = "Álcool";
-        }
-    }
-
     public String getModelo() {
         return this.modelo;
     }
@@ -107,14 +94,28 @@ public abstract class Veiculo {
         return this.combustivel;
     }
 
+    public String setCombustivel(Veiculo veiculo) {
+        if (veiculo.numCombustivel == 1) {
+            veiculo.combustivel = "Gasolina";
+        } else if (veiculo.numCombustivel == 2) {
+            veiculo.combustivel = "Diesel";
+        } else if (veiculo.numCombustivel == 3) {
+            veiculo.combustivel = "Flex";
+        } else if (veiculo.numCombustivel == 4) {
+            veiculo.combustivel = "GNV";
+        } else if (veiculo.numCombustivel == 5) {
+            veiculo.combustivel = "Álcool";
+        }
+
+        return combustivel;
+    }
+
     public String imprimir(Veiculo veiculo) {
-        return
-        "ID: " + veiculo +
-        "\nMODELO: " + veiculo.modelo +
-        "\nMARCA: " + veiculo.marca +
-        "\nANO DE FABRICAÇÃO: " + veiculo.ano_fabricacao +
-        "\nVALOR DE MERCADO: R$" + df.format(veiculo.valor_mercado) +
-        "\nPLACA: " + veiculo.placa +
-        "\nTIPO DE COMBUSTÍVEL: " + veiculo.combustivel;
+        setCombustivel(veiculo);
+
+        return "\nID: " + veiculo + "\nMODELO: " + veiculo.modelo + "\nMARCA: " + veiculo.marca
+                + "\nANO DE FABRICAÇÃO: " + veiculo.ano_fabricacao + "\nVALOR DE MERCADO: R$"
+                + df.format(veiculo.valor_mercado) + "\nPLACA: " + veiculo.placa + "\nTIPO DE COMBUSTÍVEL: "
+                + veiculo.combustivel;
     }
 }
