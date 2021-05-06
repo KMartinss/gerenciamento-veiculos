@@ -15,6 +15,10 @@ public class GerenciarVeiculos extends Veiculo {
         veiculos = new ArrayList<>();
     }
 
+    public GerenciarVeiculos(String placa) {
+        
+    }
+
     public void adicionar(Veiculo veiculo) {
         this.veiculos.add(veiculo);
     }
@@ -37,19 +41,6 @@ public class GerenciarVeiculos extends Veiculo {
         return retorno;
     }
 
-    public Veiculo buscarPorPlaca(String placa) {
-
-        Veiculo retorno = null;
-
-        for (Veiculo v : veiculos) {
-            if (v.getPlaca().equalsIgnoreCase(placa)) {
-                retorno = v;
-            }
-        }
-
-        return retorno;
-    }
-
     public String listarVeiculos() {
         StringBuilder listaVeiculos = new StringBuilder(); // constroi tudo numa string so e imprime
 
@@ -60,6 +51,27 @@ public class GerenciarVeiculos extends Veiculo {
         }
 
         return listaVeiculos.toString();
+
     }
 
+    public Veiculo buscarPorPlaca(String placa) {
+        Veiculo retorno = null;
+
+        for (Veiculo v : veiculos) {
+            if (v.getPlaca().equalsIgnoreCase(placa)) {
+                retorno = v;
+            }
+        }
+        return retorno;
+    }
+    
+
+    public String obterValorImposto(String placa) {
+        double valorImposto = calcularImposto(placa);
+        if (valorImposto == -1) {
+            return "\nPlaca informada não localizada";
+        } else {
+            return "\nValor do imposto do veículo é de: R$ " + valorImposto;
+        }
+    }
 }

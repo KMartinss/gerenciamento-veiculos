@@ -1,17 +1,17 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.text.DecimalFormat;
 
-public abstract class Veiculo {
+public class Veiculo {
     private String modelo;
     private String marca;
     private int ano_fabricacao;
     private Double valor_mercado;
-    private String placa;
+    public String placa;
     private int numCombustivel;
     private String combustivel;
     private int ano_atual = 2021;
-    private int idade_veiculo;
-    private double imposto;
     private DecimalFormat df = new DecimalFormat("#,###.00");
 
     Scanner input = new Scanner(System.in);
@@ -28,46 +28,6 @@ public abstract class Veiculo {
 
     public Veiculo() {
 
-    }
-
-    public double calcularImposto(double valor, int ano, int numCombustivel) {
-
-        this.valor_mercado = valor;
-        this.ano_fabricacao = ano;
-        this.numCombustivel = numCombustivel;
-
-        idade_veiculo = ano_atual - ano_fabricacao;
-
-        if (idade_veiculo >= 20) {
-            imposto = 0;
-            System.out.println("\nSeu carro é isento de imposto!");
-        }
-
-        switch (numCombustivel) {
-        case 1:
-            imposto = valor_mercado * 0.04;
-            System.out.println("\nO valor do seu imposto é de: R$" + df.format(imposto));
-            break;
-        case 2:
-            imposto = valor_mercado * 0.04;
-            System.out.println("\nO valor do seu imposto é de: R$" + df.format(imposto));
-            break;
-        case 3:
-            imposto = valor_mercado * 0.04;
-            System.out.println("\nO valor do seu imposto é de: R$" + df.format(imposto));
-            break;
-        case 4:
-            imposto = valor_mercado * 0.03;
-            System.out.println("\nO valor do seu imposto é de: R$" + df.format(imposto));
-            break;
-        case 5:
-            imposto = valor_mercado * 0.03;
-            System.out.println("\nO valor do seu imposto é de: R$" + df.format(imposto));
-            break;
-        default:
-            System.out.println("\nEscolha uma opção válida: ");
-        }
-        return imposto;
     }
 
     public String getModelo() {
@@ -118,4 +78,27 @@ public abstract class Veiculo {
                 + df.format(veiculo.valor_mercado) + "\nPLACA: " + veiculo.placa + "\nTIPO DE COMBUSTÍVEL: "
                 + veiculo.combustivel;
     }
+
+    // dificuldade para chamar o método da outra clase
+    public double calcularImposto(String placa) {
+        GerenciarVeiculos teste = new GerenciarVeiculos(placa);
+
+        Veiculo veiculo = teste.buscarPorPlaca(placa);
+
+        if (veiculo == null) {
+            return -1;
+        }
+
+        if ((ano_atual - veiculo.getAno_fabricacao()) > 20) {
+
+            return 0;
+        }
+
+        if (veiculo.numCombustivel != 1 || veiculo.numCombustivel != 2 || veiculo.numCombustivel != 3) {
+            return veiculo.getValor_Mercado() * 0.03;
+        } else {
+            return veiculo.getValor_Mercado() * 0.04;
+        }
+    }
+    
 }
