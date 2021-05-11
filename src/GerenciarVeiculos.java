@@ -5,6 +5,8 @@ public class GerenciarVeiculos extends Veiculo {
 
     ArrayList<Veiculo> veiculos;
 
+    String error = "-1";
+
     public GerenciarVeiculos(String modelo, String marca, int ano_fabricacao, double valor_mercado, String placa,
             int numCombustivel) {
         super(valor_mercado, ano_fabricacao, numCombustivel, modelo, marca, placa);
@@ -16,7 +18,7 @@ public class GerenciarVeiculos extends Veiculo {
     }
 
     public GerenciarVeiculos(String placa) {
-        
+
     }
 
     public void adicionar(Veiculo veiculo) {
@@ -64,14 +66,48 @@ public class GerenciarVeiculos extends Veiculo {
         }
         return retorno;
     }
-    
 
-    public String obterValorImposto(String placa) {
-        double valorImposto = calcularImposto(placa);
+    public void obterValorImposto(String placa) {
+        double valorImposto = this.calcularImposto(placa);
+
         if (valorImposto == -1) {
-            return "\nPlaca informada não localizada";
+            System.out.println("\nPlaca informada não localizada\n");
         } else {
-            return "\nValor do imposto do veículo é de: R$ " + valorImposto;
+            System.out.printf("Valor do imposto do veículo é de: R$ " + valorImposto + "\n");
         }
+    }
+
+    @Override
+    public double calcularImposto(String placa) {
+        Veiculo veiculo = this.buscarPorPlaca(placa);
+        setCombustivel(veiculo);
+
+        if (veiculo == null) {
+
+            return -1;
+        }
+        if ((2021 - veiculo.getAno_fabricacao()) > 20) {
+            return 0;
+        }
+        if (veiculo.combustivel.equals("Gasolina") || veiculo.combustivel.equals("Diesel")
+                || veiculo.combustivel.equals("Flex")) {
+            return veiculo.getValor_Mercado() * 0.04;
+        } else {
+            return veiculo.getValor_Mercado() * 0.03;
+        }
+    }
+
+    public String listarCombustivel(int numCombustivel) {
+        StringBuilder listaCombustivel = new StringBuilder();
+
+        for (Veiculo veiculo : veiculos) {
+            numCombustivel = veiculo.numCombustivel;
+            setCombustivel(veiculo);
+
+            if (veiculo.setCombustivel(veiculo).equals(veiculo.combustivel)) {
+                listaCombustivel.append(super.imprimir(veiculo));
+            }
+        }
+        return listaCombustivel.length() > 0 ? listaCombustivel.toString() : "Nada encontrado!\n";
     }
 }

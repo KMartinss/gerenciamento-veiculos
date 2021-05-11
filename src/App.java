@@ -4,6 +4,7 @@ public class App {
     public static void main(String[] args) {
 
         GerenciarVeiculos list = new GerenciarVeiculos();
+
         int opcao = 0;
         String placa;
 
@@ -56,27 +57,27 @@ public class App {
                     list.adicionar(
                             new GerenciarVeiculos(modelo, marca, ano_fabricacao, valor_mercado, placa, numCombustivel));
 
+                    list.adicionar(new GerenciarVeiculos("fusca", "fusca", 2002, 12000, "abc", 1));
+
                     break;
 
                 case 3:
-                    // remover veiculo
+                    // remover veiculo - TERMINADO
                     System.out.println(list.listarVeiculos());
                     System.out.println("\nDigite a placa do veículo a ser removido: ");
                     placa = input.next();
-                    list.remover(placa); // TERMINADO
+                    list.remover(placa);
                     break;
 
                 case 4:
                     System.out.println(
-                            "\nDigite o tipo de combustível!\n[1] - Gasolina | [2] - Diesel | [3] - Flex | [4] - GNV | [5] - Álcool: ");
+                            "\nDigite o tipo de combustível!\n\n[1] - Gasolina | [2] - Diesel | [3] - Flex | [4] - GNV | [5] - Álcool: ");
                     numCombustivel = input.nextInt();
-
-                    // System.out.println(teste);
+                    System.out.println(list.listarCombustivel(numCombustivel));
                     break;
-
                 case 5:
-                    // Lista veiculos aqui
-                    System.out.println(list.listarVeiculos()); // TERMINADO
+                    // Lista veiculos aqui - TERMINADO
+                    System.out.println(list.listarVeiculos());
                     break;
 
                 case 6:
@@ -85,12 +86,13 @@ public class App {
                     list.obterValorImposto(placa);
                     break;
                 case 7:
-                    System.out.println("\nFinalizando...");
+                    System.out.println("\nEncerrando...");
 
-                    break; // fim do codigo
+                    System.exit(0);
+                    break;
 
                 default:
-                    System.out.println("\nEscolha uma opção válida");
+                    System.out.println("\nEscolha uma opção válida: ");
                     break;
             }
 

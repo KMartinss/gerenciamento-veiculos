@@ -3,14 +3,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.text.DecimalFormat;
 
-public class Veiculo {
+public abstract class Veiculo {
     private String modelo;
     private String marca;
     private int ano_fabricacao;
     private Double valor_mercado;
     public String placa;
-    private int numCombustivel;
-    private String combustivel;
+    public int numCombustivel;
+    public String combustivel;
     private int ano_atual = 2021;
     private DecimalFormat df = new DecimalFormat("#,###.00");
 
@@ -29,6 +29,8 @@ public class Veiculo {
     public Veiculo() {
 
     }
+
+    public abstract double calcularImposto(String placa);
 
     public String getModelo() {
         return this.modelo;
@@ -76,29 +78,6 @@ public class Veiculo {
         return "\nID: " + veiculo + "\nMODELO: " + veiculo.modelo + "\nMARCA: " + veiculo.marca
                 + "\nANO DE FABRICAÇÃO: " + veiculo.ano_fabricacao + "\nVALOR DE MERCADO: R$"
                 + df.format(veiculo.valor_mercado) + "\nPLACA: " + veiculo.placa + "\nTIPO DE COMBUSTÍVEL: "
-                + veiculo.combustivel;
+                + veiculo.combustivel + "\n";
     }
-
-    // dificuldade para chamar o método da outra clase
-    public double calcularImposto(String placa) {
-        GerenciarVeiculos teste = new GerenciarVeiculos(placa);
-
-        Veiculo veiculo = teste.buscarPorPlaca(placa);
-
-        if (veiculo == null) {
-            return -1;
-        }
-
-        if ((ano_atual - veiculo.getAno_fabricacao()) > 20) {
-
-            return 0;
-        }
-
-        if (veiculo.numCombustivel != 1 || veiculo.numCombustivel != 2 || veiculo.numCombustivel != 3) {
-            return veiculo.getValor_Mercado() * 0.03;
-        } else {
-            return veiculo.getValor_Mercado() * 0.04;
-        }
-    }
-    
 }
