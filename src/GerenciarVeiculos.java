@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.text.DecimalFormat;
 
+// Optamos por estender a classe Veículo
 public class GerenciarVeiculos extends Veiculo {
 
-    ArrayList<Veiculo> veiculos;
+    DecimalFormat df = new DecimalFormat("#,###.00");
 
-    String error = "-1";
+    ArrayList<Veiculo> veiculos;
 
     public GerenciarVeiculos(String modelo, String marca, int ano_fabricacao, double valor_mercado, String placa,
             int numCombustivel) {
@@ -18,7 +20,6 @@ public class GerenciarVeiculos extends Veiculo {
     }
 
     public GerenciarVeiculos(String placa) {
-
     }
 
     public void adicionar(Veiculo veiculo) {
@@ -29,40 +30,44 @@ public class GerenciarVeiculos extends Veiculo {
         boolean retorno = false;
 
         Iterator<Veiculo> item = veiculos.iterator();
+        // Encapsula o array Veiculo
+        // HasNext vai percorrer o array
 
         while (item.hasNext()) {
             Veiculo veiculo = item.next();
+            // Next vai verificar se existe um próximo elemento
 
-            if (veiculo.getPlaca().equalsIgnoreCase(placa)) {
+            if (veiculo.getPlaca().equals(placa)) {
                 item.remove();
-
+                System.out.println("\nVeículo removido com sucesso!");
+                // Remove vai remover esse elemento do array
                 retorno = true;
+            }else {
+                System.out.println("Veículo não encontrado!");
             }
         }
-
         return retorno;
     }
 
     public String listarVeiculos() {
-        StringBuilder listaVeiculos = new StringBuilder(); // constroi tudo numa string so e imprime
-
+        StringBuilder listaVeiculos = new StringBuilder(); // Constrói tudo numa string só e imprime
         System.out.println("Quantidade de veículos cadastrados: " + veiculos.size());
 
-        for (Veiculo v : veiculos) {
-            listaVeiculos.append(super.imprimir(v));
+        for (Veiculo i : veiculos) {
+            listaVeiculos.append(super.imprimir(i));
+            // Super -> Invoca o construtor da classe Pai, no caso Veiculo
+            // Append: Método de impressão do stringbuilder, concatena as strings
         }
-
         return listaVeiculos.toString();
-
     }
 
     public Veiculo buscarPorPlaca(String placa) {
         Veiculo retorno = null;
 
-        for (Veiculo v : veiculos) {
-            if (v.getPlaca().equalsIgnoreCase(placa)) {
-                retorno = v;
-            }
+        // Loop for-each
+        for (Veiculo i : veiculos) {
+            if (i.getPlaca().equals(placa))
+                retorno = i;
         }
         return retorno;
     }
@@ -73,9 +78,12 @@ public class GerenciarVeiculos extends Veiculo {
         if (valorImposto == -1) {
             System.out.println("\nPlaca informada não localizada\n");
         } else {
-            System.out.printf("Valor do imposto do veículo é de: R$ " + valorImposto + "\n");
+            System.out.printf("Valor do imposto do veículo é de: R$ " + df.format(valorImposto) + "\n");
         }
     }
+
+    // Override vai implementar ou sobrescrever um método vindo de outra classe, no
+    // caso o método CalcularImposto que vem de Veículo
 
     @Override
     public double calcularImposto(String placa) {
@@ -97,17 +105,20 @@ public class GerenciarVeiculos extends Veiculo {
         }
     }
 
-    public String listarCombustivel(int numCombustivel) {
-        StringBuilder listaCombustivel = new StringBuilder();
+    // public String listarCombustivel(int numCombustivel) {
+    // StringBuilder listaCombustivel = new StringBuilder();
 
-        for (Veiculo veiculo : veiculos) {
-            numCombustivel = veiculo.numCombustivel;
-            setCombustivel(veiculo);
+    // for (Veiculo i : veiculos) {
+    // numCombustivel = i.numCombustivel;
+    // setCombustivel(i);
 
-            if (veiculo.setCombustivel(veiculo).equals(veiculo.combustivel)) {
-                listaCombustivel.append(super.imprimir(veiculo));
-            }
-        }
-        return listaCombustivel.length() > 0 ? listaCombustivel.toString() : "Nada encontrado!\n";
-    }
+    // if (i.setCombustivel(i).equals(i.combustivel)) {
+    // listaCombustivel.append(super.imprimir(i));
+    // }
+    // }
+    // if (listaCombustivel.length() > 0) {
+    // return listaCombustivel.toString();
+    // } else {
+    // System.out.println("Nada encontrado!\n");
+    // }
 }

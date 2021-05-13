@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.text.DecimalFormat;
 
@@ -11,7 +9,6 @@ public abstract class Veiculo {
     public String placa;
     public int numCombustivel;
     public String combustivel;
-    private int ano_atual = 2021;
     private DecimalFormat df = new DecimalFormat("#,###.00");
 
     Scanner input = new Scanner(System.in);
@@ -30,6 +27,7 @@ public abstract class Veiculo {
 
     }
 
+    // Função que vai ser passada para o @override de GerenciarVeiculos
     public abstract double calcularImposto(String placa);
 
     public String getModelo() {
@@ -56,8 +54,8 @@ public abstract class Veiculo {
         return this.combustivel;
     }
 
-    public String setCombustivel(Veiculo veiculo) {
-        if (veiculo.numCombustivel == 1) {
+    public String setCombustivel(Veiculo veiculo) { //Tratamento de variável utilizada para armazenar o tipo de combustível do veiculo.
+        if (veiculo.numCombustivel == 1) { 
             veiculo.combustivel = "Gasolina";
         } else if (veiculo.numCombustivel == 2) {
             veiculo.combustivel = "Diesel";
